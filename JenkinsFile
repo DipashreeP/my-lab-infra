@@ -26,8 +26,7 @@ pipeline {
             steps{
                 echo 'Deploy Ansible'
                 sh '''
-                cd ..
-            
+        
                 docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
                 ansible-playbook aplaybooksapp2/playbook.yml -i aplaybooksapp2/inventory
                 '''
