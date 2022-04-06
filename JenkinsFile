@@ -27,8 +27,7 @@ pipeline {
                 echo 'Deploy Ansible'
                 sh '''
                 cd ..
-                docker run --rm -it -d --name web_server --hostname web_server nishanthkp/targetserver:ubuntu16
-                docker run --rm -it -d --name db_server --hostname db_server nishanthkp/targetserver:ubuntu16
+            
                 docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
                 ansible-playbook aplaybooksapp2/playbook.yml -i aplaybooksapp2/inventory
                 '''
