@@ -12,7 +12,6 @@ pipeline {
             steps {
                 echo 'Init the Terraform to Download and Apply Terraform with -auto-approve option'
                 sh '''
-                pwd
                 cd terraforminfra
                 terraform init
                 terraform validate
@@ -22,18 +21,16 @@ pipeline {
                 '''
             }
         }
-        stage('Integrate Ansible'){
-            steps{
-                echo 'Deploy Ansible'
+        stage('Ansible to Configure DB and Web Server') {
+            steps {
                 sh '''
-        
-                docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
-                ansible-playbook aplaybooksapp2/playbook.yml -i aplaybooksapp2/inventory
+                echo "Running Ansible Command"
+                cd ansibleinfracm
+                ansible-playbook playbook.yml -i inventory
                 '''
-
             }
         }
-        stage('Dummy1') {
+        stage('Dummy2') {
             steps {
                 echo 'Hello World'
             }
